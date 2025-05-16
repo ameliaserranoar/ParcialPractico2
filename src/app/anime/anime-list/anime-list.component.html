@@ -1,21 +1,32 @@
-  <br>
-  <div class="container contenedor-animes">
+<div class="container mt-4">
   <div class="row">
-    <!-- COMPLETAR CON EL LLAMADO A UNA FUNCIÓN PROPIA QUE CALCULE EL RATING PROMEDIO -->
-    <p>El rating promedio es <span class="badge text-bg-primary rounded-pill"> 7.99 </span></p>
-    <div *ngIf="selected">
-      <app-anime-detail [animeDetail]="selectedBAnime"></app-anime-detail>
-      <hr>
+    <div class="col-12 col-md-4">
+      <p class="mt-3 text-muted font-weight-bold">
+        Promedio de rating: <span class="badge text-bg-primary rounded-pill"> {{ calcularPromedio().toFixed(2) }} </span> 
+      </p>
     </div>
-    <div class="col-4" *ngFor="let anime of animes">
-        <p>{{anime.name}}</p>
-        <img src={{anime.img}}  alt="anime image" width=50px>
-        <p>⭐{{anime.Rating}} <b>Categories: </b>{{anime.categorie}}</p>
-        <!-- COMPLETAR PARA INCLUIR LA CANTIDAD DE TEMPORADAS -->
-        <p class="card-text"><b># seasons: </b>"COMPLETAR"</p>
-        <a href="#" (click)="onSelected(anime)">More information</a>
-        <hr>
-   </div>
+  </div>
 
+  <div class="container mt-4 px-4">
+    <div class="row g-4">
+      <div class="col-12 col-md-4" *ngFor="let anime of animes">
+        <div class="card p-3">
+          <h5 class="card-title">{{ anime.name }}</h5>
+
+            <img
+              class="card-img-top"
+              [src]="anime.img"
+              [alt]="anime.name"
+              (click)="onSelected(anime)"
+            />
+
+          <div class="card-body">
+            <p class="card-text">Categorias: {{ anime.categorie }}</p>
+            <p class="card-text">temporadas: {{ anime.seasons.length }}</p>
+            <a [routerLink]="['/animes', anime.id]" (click)="seleccionarAnime(anime)">More information</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
